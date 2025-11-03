@@ -185,10 +185,12 @@ class QueryService:
             models.Product.name.label('product_name'),
             models.Category.name.label('category_name'),
             metric
-        ).join(models.ProductSale.product).join(
-            models.Product.category
         ).join(
-            models.ProductSale.sale
+            models.ProductSale, models.ProductSale.product_id == models.Product.id
+        ).join(
+            models.Category, models.Category.id == models.Product.category_id
+        ).join(
+            models.Sale, models.Sale.id == models.ProductSale.sale_id
         ).filter(
             models.Sale.sale_status_desc == 'COMPLETED'
         )

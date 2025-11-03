@@ -38,7 +38,8 @@ def read_root():
 def health_check(db: Session = Depends(get_db)):
     """Health check with database connection"""
     try:
-        db.execute("SELECT 1")
+        from sqlalchemy import text
+        db.execute(text("SELECT 1"))
         return {"status": "ok", "database": "connected"}
     except Exception as e:
         return {"status": "error", "database": str(e)}
