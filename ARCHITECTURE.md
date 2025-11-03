@@ -1,10 +1,10 @@
-# 🏗️ Decisões Arquiteturais - Nola Restaurant Analytics
+#  Decisões Arquiteturais - Nola Restaurant Analytics
 
-## Contexto
+# Contexto
 
 Este documento explica **por que** escolhemos determinadas tecnologias e padrões arquiteturais para resolver o problema de analytics para restaurantes.
 
-## Princípios Norteadores
+# Princípios Norteadores
 
 1. **Simplicidade > Complexidade**: Usar ferramentas conhecidas e bem documentadas
 2. **Performance Importa**: Queries < 500ms é requisito não-negociável
@@ -12,53 +12,53 @@ Este documento explica **por que** escolhemos determinadas tecnologias e padrõe
 4. **Escalabilidade Pragmática**: Preparado para crescer, mas não over-engineered
 5. **Manutenibilidade**: Código limpo, bem estruturado e documentado
 
-## Decisões de Stack
+# Decisões de Stack
 
-### Backend: Python + FastAPI
+## Backend: Python + FastAPI
 
 **Por que Python?**
-- ✅ Excelente para manipulação de dados (Pandas, NumPy)
-- ✅ Rico ecossistema para analytics e BI
-- ✅ Familiaridade da equipe Nola/Arcca
-- ✅ Performance adequada com otimizações
+-  Excelente para manipulação de dados (Pandas, NumPy)
+-  Rico ecossistema para analytics e BI
+-  Familiaridade da equipe Nola/Arcca
+-  Performance adequada com otimizações
 
 **Por que FastAPI (não Flask/Django)?**
-- ✅ **Performance**: Async nativo, muito mais rápido que Flask
-- ✅ **Type Safety**: Pydantic schemas com validação automática
-- ✅ **Docs Automática**: OpenAPI/Swagger out-of-the-box
-- ✅ **Moderno**: Async/await, type hints, dependency injection
-- ❌ Django seria overkill (não precisamos de admin, ORM completo, etc.)
+-  **Performance**: Async nativo, muito mais rápido que Flask
+-  **Type Safety**: Pydantic schemas com validação automática
+-  **Docs Automática**: OpenAPI/Swagger out-of-the-box
+-  **Moderno**: Async/await, type hints, dependency injection
+-  Django seria overkill (não precisamos de admin, ORM completo, etc.)
 
 **Alternativas Consideradas:**
 - **Node.js + Express**: Descartado - Python é melhor para data processing
 - **Go**: Descartado - Curva de aprendizado maior, menos libs de analytics
 
-### Frontend: React + TypeScript
+## Frontend: React + TypeScript
 
 **Por que React?**
-- ✅ **Ecossistema Rico**: Recharts, TanStack Query, routing maduro
-- ✅ **Component-Based**: Reutilização e manutenibilidade
-- ✅ **Performance**: Virtual DOM e otimizações internas
-- ✅ **Flexibilidade**: Não opinionado, escolhemos padrões
+-  **Ecossistema Rico**: Recharts, TanStack Query, routing maduro
+-  **Component-Based**: Reutilização e manutenibilidade
+-  **Performance**: Virtual DOM e otimizações internas
+-  **Flexibilidade**: Não opinionado, escolhemos padrões
 
 **Por que TypeScript?**
-- ✅ **Type Safety**: Detecta erros em tempo de desenvolvimento
-- ✅ **Intellisense**: Melhor DX com autocomplete
-- ✅ **Refactoring**: Mudanças com confiança
-- ✅ **Documentação**: Tipos como documentação viva
+-  **Type Safety**: Detecta erros em tempo de desenvolvimento
+-  **Intellisense**: Melhor DX com autocomplete
+-  **Refactoring**: Mudanças com confiança
+-  **Documentação**: Tipos como documentação viva
 
 **Alternativas Consideradas:**
 - **Vue.js**: Excelente opção, mas React tem mais libs de visualização
 - **Angular**: Muito opinionado e pesado para o projeto
 - **Svelte**: Jovem demais, menos libs de charts
 
-### Visualizações: Recharts
+## Visualizações: Recharts
 
 **Por que Recharts?**
-- ✅ **React-First**: Componentes nativos React
-- ✅ **Customizável**: Controle total sobre aparência
-- ✅ **Performance**: Otimizado para grandes datasets
-- ✅ **Responsivo**: Funciona bem em mobile
+-  **React-First**: Componentes nativos React
+-  **Customizável**: Controle total sobre aparência
+-  **Performance**: Otimizado para grandes datasets
+-  **Responsivo**: Funciona bem em mobile
 
 **Alternativas Consideradas:**
 - **Chart.js**: Bom, mas não é React-first
@@ -66,14 +66,14 @@ Este documento explica **por que** escolhemos determinadas tecnologias e padrõe
 - **Plotly**: Pesado, features demais que não precisamos
 - **Victory**: Similar ao Recharts, mas menos maduro
 
-### Banco de Dados: PostgreSQL
+## Banco de Dados: PostgreSQL
 
 **Por que PostgreSQL?**
-- ✅ **Requisito do Desafio**: Schema fornecido é PostgreSQL
-- ✅ **ACID Compliant**: Confiabilidade em transações
-- ✅ **Analytical Queries**: Window functions, CTEs, JSON support
-- ✅ **Extensível**: PostGIS para geolocalização futura
-- ✅ **Open Source**: Sem custos de licença
+-  **Requisito do Desafio**: Schema fornecido é PostgreSQL
+-  **ACID Compliant**: Confiabilidade em transações
+-  **Analytical Queries**: Window functions, CTEs, JSON support
+-  **Extensível**: PostGIS para geolocalização futura
+-  **Open Source**: Sem custos de licença
 
 **Otimizações Implementadas:**
 - Índices em colunas de filtro frequente (`created_at`, `store_id`, `channel_id`)
@@ -86,13 +86,13 @@ Este documento explica **por que** escolhemos determinadas tecnologias e padrõe
 - Particionamento por data
 - Read replicas para analytics
 
-### Cache: Redis
+## Cache: Redis
 
 **Por que Redis?**
-- ✅ **Velocidade**: In-memory, sub-millisecond latency
-- ✅ **Simplicidade**: Key-value store, fácil de usar
-- ✅ **TTL Automático**: Expiração de cache sem lógica extra
-- ✅ **Ubíquo**: Presente em toda stack moderna
+-  **Velocidade**: In-memory, sub-millisecond latency
+-  **Simplicidade**: Key-value store, fácil de usar
+-  **TTL Automático**: Expiração de cache sem lógica extra
+-  **Ubíquo**: Presente em toda stack moderna
 
 **Estratégia de Cache:**
 ```python
@@ -116,9 +116,9 @@ ttl = 300  # 5 minutos
 - **In-Memory Dict**: Não persiste, perde cache ao reiniciar
 - **Sem Cache**: Performance inaceitável para queries complexas
 
-## Arquitetura de Código
+# Arquitetura de Código
 
-### Backend: Layered Architecture
+## Backend: Layered Architecture
 
 ```
 API Layer (main.py)
@@ -131,18 +131,18 @@ Database (PostgreSQL)
 ```
 
 **Por quê?**
-- ✅ **Separation of Concerns**: Cada camada tem responsabilidade clara
-- ✅ **Testabilidade**: Fácil mockar camadas
-- ✅ **Manutenibilidade**: Mudanças isoladas
-- ✅ **Escalabilidade**: Fácil adicionar microserviços depois
+-  **Separation of Concerns**: Cada camada tem responsabilidade clara
+-  **Testabilidade**: Fácil mockar camadas
+-  **Manutenibilidade**: Mudanças isoladas
+-  **Escalabilidade**: Fácil adicionar microserviços depois
 
 **Por que NÃO microserviços agora?**
-- ❌ Over-engineering para MVP
-- ❌ Complexidade de deployment
-- ❌ Latência de network entre serviços
-- ✅ Monolito modular é suficiente (e mais rápido)
+-  Over-engineering para MVP
+-  Complexidade de deployment
+-  Latência de network entre serviços
+-  Monolito modular é suficiente (e mais rápido)
 
-### Query Service: Dynamic Query Builder
+## Query Service: Dynamic Query Builder
 
 **Problema:**
 - Usuário quer queries flexíveis
@@ -163,73 +163,73 @@ class QueryService:
 ```
 
 **Benefícios:**
-- ✅ **Seguro**: SQLAlchemy previne injection
-- ✅ **Flexível**: Qualquer combinação de métrica + dimensão
-- ✅ **Otimizado**: Gera SQL eficiente
-- ✅ **Type-Safe**: Pydantic valida inputs
+-  **Seguro**: SQLAlchemy previne injection
+-  **Flexível**: Qualquer combinação de métrica + dimensão
+-  **Otimizado**: Gera SQL eficiente
+-  **Type-Safe**: Pydantic valida inputs
 
 **Por que não query string SQL direta?**
-- ❌ SQL injection risk
-- ❌ Parsing complexo
-- ❌ Validação manual
+-  SQL injection risk
+-  Parsing complexo
+-  Validação manual
 
-### Frontend: Feature-Based Structure
+## Frontend: Feature-Based Structure
 
 ```
 src/
-├── pages/           # Uma página = uma feature
-│   ├── Dashboard.tsx
-│   ├── Analytics.tsx
-│   └── ...
-├── api.ts           # Cliente API centralizado
-└── main.tsx         # Entry point
+ pages/           # Uma página = uma feature
+    Dashboard.tsx
+    Analytics.tsx
+    ...
+ api.ts           # Cliente API centralizado
+ main.tsx         # Entry point
 ```
 
 **Por quê?**
-- ✅ **Colocação**: Features relacionadas juntas
-- ✅ **Escalável**: Adicionar features não mexe em outras
-- ✅ **Simples**: Não over-engineer com atomic design ainda
+-  **Colocação**: Features relacionadas juntas
+-  **Escalável**: Adicionar features não mexe em outras
+-  **Simples**: Não over-engineer com atomic design ainda
 
 **Quando refatorar?**
 - Se componentes forem reutilizados 3+ vezes → extrair para `/components`
 - Se lógica de API crescer muito → extrair hooks customizados
 
-### State Management: TanStack Query (não Redux)
+## State Management: TanStack Query (não Redux)
 
 **Por que TanStack Query?**
-- ✅ **Server State**: Feito para dados de API
-- ✅ **Cache Automático**: Não reimplementar cache logic
-- ✅ **Refetch Automático**: Background updates
-- ✅ **Loading/Error States**: Gerenciados automaticamente
+-  **Server State**: Feito para dados de API
+-  **Cache Automático**: Não reimplementar cache logic
+-  **Refetch Automático**: Background updates
+-  **Loading/Error States**: Gerenciados automaticamente
 
 **Por que NÃO Redux?**
-- ❌ Boilerplate excessivo
-- ❌ Projetado para client state, não server state
-- ❌ Over-engineering para nosso caso
+-  Boilerplate excessivo
+-  Projetado para client state, não server state
+-  Over-engineering para nosso caso
 
 **Quando usar Redux?**
 - Se tivéssemos estado complexo compartilhado (user settings, UI preferences)
 - Se precisássemos time-travel debugging
 - Se houvesse lógica de negócio complexa no frontend
 
-## Decisões de UX
+# Decisões de UX
 
-### Filtros Sempre Visíveis
+## Filtros Sempre Visíveis
 
 **Por quê?**
-- ✅ **Affordance**: Usuário vê o que pode fazer
-- ✅ **Contexto**: Sempre sabe os filtros ativos
-- ✅ **Rapidez**: Não precisa abrir modal
+-  **Affordance**: Usuário vê o que pode fazer
+-  **Contexto**: Sempre sabe os filtros ativos
+-  **Rapidez**: Não precisa abrir modal
 
 **Alternativa Considerada:**
 - Modal de filtros → Descartado, esconde funcionalidade
 
-### Comparação Temporal Automática
+## Comparação Temporal Automática
 
 **Por quê?**
-- ✅ **Context**: "Está melhor ou pior?" é pergunta comum
-- ✅ **Actionable**: Delta % mostra direção
-- ✅ **Simples**: Não requer configuração manual
+-  **Context**: "Está melhor ou pior?" é pergunta comum
+-  **Actionable**: Delta % mostra direção
+-  **Simples**: Não requer configuração manual
 
 **Implementação:**
 ```typescript
@@ -241,12 +241,12 @@ periodo_anterior = [hoje - 60, hoje - 30]
 delta = (atual - anterior) / anterior * 100
 ```
 
-### Insights Automáticos (não só dashboards)
+## Insights Automáticos (não só dashboards)
 
 **Por quê?**
-- ✅ **Proativo**: Sistema sugere, não só responde
-- ✅ **Acionável**: Recomendações práticas
-- ✅ **Educativo**: Ensina o que observar
+-  **Proativo**: Sistema sugere, não só responde
+-  **Acionável**: Recomendações práticas
+-  **Educativo**: Ensina o que observar
 
 **Algoritmo Simples:**
 ```python
@@ -266,9 +266,9 @@ if revenue_change < -15%:
 - Previsão de demanda
 - Recomendações personalizadas por loja
 
-## Decisões de Performance
+# Decisões de Performance
 
-### Índices: Aggressive mas Pragmático
+## Índices: Aggressive mas Pragmático
 
 **Índices Criados:**
 ```sql
@@ -279,15 +279,15 @@ CREATE INDEX idx_sales_status ON sales(sale_status_desc);
 ```
 
 **Por quê?**
-- ✅ **Filtros Comuns**: Essas colunas são filtradas 90% do tempo
-- ✅ **Read-Heavy**: Sistema de analytics, 99% reads
-- ✅ **Trade-off OK**: Writes mais lentos aceitável
+-  **Filtros Comuns**: Essas colunas são filtradas 90% do tempo
+-  **Read-Heavy**: Sistema de analytics, 99% reads
+-  **Trade-off OK**: Writes mais lentos aceitável
 
 **Por que não mais índices?**
-- ❌ Cada índice tem custo de storage e write
-- ❌ PostgreSQL query planner pode se confundir com muitos índices
+-  Cada índice tem custo de storage e write
+-  PostgreSQL query planner pode se confundir com muitos índices
 
-### Connection Pooling: 10 base, 20 max
+## Connection Pooling: 10 base, 20 max
 
 **Por quê?**
 ```python
@@ -295,30 +295,30 @@ pool_size=10,      # Conexões mantidas sempre
 max_overflow=20    # Pode crescer até 30 total
 ```
 
-- ✅ **10 base**: Suficiente para requests concorrentes normais
-- ✅ **20 overflow**: Buffer para picos
-- ✅ **30 total**: PostgreSQL aguenta bem
+-  **10 base**: Suficiente para requests concorrentes normais
+-  **20 overflow**: Buffer para picos
+-  **30 total**: PostgreSQL aguenta bem
 
 **Como chegamos nesses números?**
 - Testes de carga: 50 requests/segundo
 - Queries médias: 200ms
 - Concorrência: 10 queries simultâneas normalmente
 
-### Cache TTL: 5 minutos
+## Cache TTL: 5 minutos
 
 **Por quê?**
-- ✅ **Freshness**: Dados "recentes o suficiente"
-- ✅ **Hit Rate**: Alta, já que mesmos filtros são consultados
-- ✅ **Storage**: Redis comporta bem
+-  **Freshness**: Dados "recentes o suficiente"
+-  **Hit Rate**: Alta, já que mesmos filtros são consultados
+-  **Storage**: Redis comporta bem
 
 **Testamos:**
 - 1 minuto: Hit rate baixo, pouco ganho
 - 10 minutos: Dados obsoletos demais
 - 5 minutos: Sweet spot
 
-## Segurança
+# Segurança
 
-### CORS: Whitelist de Origens
+## CORS: Whitelist de Origens
 
 ```python
 CORS_ORIGINS = [
@@ -328,20 +328,20 @@ CORS_ORIGINS = [
 ```
 
 **Por quê?**
-- ✅ **Seguro**: Só origens conhecidas
-- ✅ **Flexível**: Fácil adicionar produção
+-  **Seguro**: Só origens conhecidas
+-  **Flexível**: Fácil adicionar produção
 
-### SQL Injection: SQLAlchemy ORM
+## SQL Injection: SQLAlchemy ORM
 
 **Por quê?**
-- ✅ **Parametrized Queries**: Automático com ORM
-- ✅ **Validação**: Pydantic valida inputs antes de query
+-  **Parametrized Queries**: Automático com ORM
+-  **Validação**: Pydantic valida inputs antes de query
 
 **Não usamos:**
-- ❌ String interpolation em SQL
-- ❌ exec() ou eval() com user input
+-  String interpolation em SQL
+-  exec() ou eval() com user input
 
-### Autenticação: Não Implementada (MVP)
+## Autenticação: Não Implementada (MVP)
 
 **Por quê?**
 - Não é requisito do desafio
@@ -353,16 +353,16 @@ CORS_ORIGINS = [
 2. OAuth2 (Google, Facebook)
 3. RBAC (admin, gerente, usuário)
 
-## Trade-offs Conscientes
+# Trade-offs Conscientes
 
-### ✅ O que priorizamos
+## O que priorizamos
 
 1. **UX > Features**: Dashboard intuitivo > 50 tipos de gráficos
 2. **Performance > Novidades**: Queries rápidas > Real-time WebSockets
 3. **Pragmatismo > Perfeição**: MVP funcional > Arquitetura "perfeita"
 4. **Documentação > Código**: README claro > Code comments
 
-### ❌ O que deixamos para depois
+## O que deixamos para depois
 
 1. **Autenticação**: Simples de adicionar, não é core
 2. **Multi-tenancy**: Uma instância por brand ok por agora
@@ -370,24 +370,24 @@ CORS_ORIGINS = [
 4. **CI/CD**: Deploy manual ok para challenge
 5. **Internacionalização**: Português-BR suficiente
 
-## Lições Aprendidas
+# Lições Aprendidas
 
-### O que funcionou bem
+## O que funcionou bem
 
 1. **FastAPI**: Muito produtivo, docs automáticas salvaram tempo
 2. **TanStack Query**: Cache e loading states "de graça"
 3. **Docker Compose**: Setup trivial, reproduzível
 4. **Recharts**: Gráficos bonitos com pouco esforço
 
-### O que faríamos diferente
+## O que faríamos diferente
 
 1. **Testes desde o início**: Refactoring seria mais confiante
 2. **Design system**: Componentes consistentes desde dia 1
 3. **Telemetria**: Métricas de uso para guiar features
 
-## Escalabilidade Futura
+# Escalabilidade Futura
 
-### 10x mais dados (5M vendas)
+## 10x mais dados (5M vendas)
 
 **O que fazer:**
 1. Particionamento de tabelas por mês
@@ -400,7 +400,7 @@ CORS_ORIGINS = [
 - Migrar de PostgreSQL
 - Microserviços
 
-### 100x mais usuários
+## 100x mais usuários
 
 **O que fazer:**
 1. Load balancer (Nginx, HAProxy)
@@ -413,7 +413,7 @@ CORS_ORIGINS = [
 2. Cache (resolver com Redis Cluster)
 3. Backend (resolver com scale horizontal)
 
-## Conclusão
+# Conclusão
 
 Cada decisão foi feita pensando em:
 1. **Resolver o problema de Maria** (UX, insights acionáveis)
@@ -422,12 +422,12 @@ Cada decisão foi feita pensando em:
 4. **Escalar se preciso** (mas não over-engineer agora)
 
 **Resultado:**
-- ✅ Dashboard funcional em < 5 min setup
-- ✅ Queries < 500ms com cache
-- ✅ UX intuitiva para não-técnicos
-- ✅ Código limpo e manutenível
-- ✅ Preparado para escalar
+-  Dashboard funcional em < 5 min setup
+-  Queries < 500ms com cache
+-  UX intuitiva para não-técnicos
+-  Código limpo e manutenível
+-  Preparado para escalar
 
 ---
 
-**Tecnologia é meio, não fim. O fim é ajudar Maria a tomar melhores decisões. 🎯**
+**Tecnologia é meio, não fim. O fim é ajudar Maria a tomar melhores decisões. **

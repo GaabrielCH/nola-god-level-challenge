@@ -1,10 +1,10 @@
-# 🛠️ Comandos Úteis - Nola Analytics
+#  Comandos Úteis - Nola Analytics
 
 Referência rápida de comandos para desenvolvimento e troubleshooting.
 
-## Docker Compose
+# Docker Compose
 
-### Básico
+## Básico
 ```powershell
 # Iniciar tudo
 docker compose up -d
@@ -29,7 +29,7 @@ docker compose build --no-cache
 docker compose down -v
 ```
 
-### Desenvolvimento
+## Desenvolvimento
 ```powershell
 # Apenas banco de dados
 docker compose up -d postgres redis
@@ -43,9 +43,9 @@ docker compose exec postgres psql -U challenge challenge_db
 docker compose exec redis redis-cli
 ```
 
-## Banco de Dados
+# Banco de Dados
 
-### PostgreSQL
+## PostgreSQL
 ```powershell
 # Conectar ao banco
 docker compose exec postgres psql -U challenge challenge_db
@@ -77,7 +77,7 @@ docker compose exec postgres pg_dump -U challenge challenge_db > backup.sql
 docker compose exec -T postgres psql -U challenge challenge_db < backup.sql
 ```
 
-### Redis
+## Redis
 ```powershell
 # Conectar ao Redis
 docker compose exec redis redis-cli
@@ -98,9 +98,9 @@ INFO stats
 INFO memory
 ```
 
-## Backend (FastAPI)
+# Backend (FastAPI)
 
-### Local Development
+## Local Development
 ```powershell
 cd backend
 
@@ -120,7 +120,7 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 uvicorn main:app --reload --log-level debug
 ```
 
-### Testes
+## Testes
 ```powershell
 # Instalar pytest
 pip install pytest pytest-cov
@@ -135,7 +135,7 @@ pytest --cov=.
 pytest tests/test_api.py::test_health_check
 ```
 
-### API Testing
+## API Testing
 ```powershell
 # Health check
 curl http://localhost:8000/api/health
@@ -155,9 +155,9 @@ Invoke-RestMethod -Uri http://localhost:8000/api/dashboard/overview -Method Post
 Invoke-RestMethod -Uri http://localhost:8000/api/cache/clear -Method Delete
 ```
 
-## Frontend (React)
+# Frontend (React)
 
-### Local Development
+## Local Development
 ```powershell
 cd frontend
 
@@ -177,7 +177,7 @@ npm run preview
 npm run lint
 ```
 
-### Troubleshooting
+## Troubleshooting
 ```powershell
 # Limpar node_modules e reinstalar
 Remove-Item -Recurse -Force node_modules
@@ -189,9 +189,9 @@ Remove-Item -Recurse -Force .vite
 npm run dev
 ```
 
-## Geração de Dados
+# Geração de Dados
 
-### Básico
+## Básico
 ```powershell
 # Gerar dados padrão (500k vendas)
 python generate_data.py
@@ -200,7 +200,7 @@ python generate_data.py
 python generate_data.py --db-url postgresql://user:pass@host:port/db
 ```
 
-### Customizado
+## Customizado
 ```powershell
 # Mais lojas
 python generate_data.py --stores 100
@@ -222,9 +222,9 @@ python generate_data.py `
   --months 12
 ```
 
-## Performance Monitoring
+# Performance Monitoring
 
-### Docker Stats
+## Docker Stats
 ```powershell
 # Ver uso de recursos em tempo real
 docker stats
@@ -233,7 +233,7 @@ docker stats
 docker stats nola-analytics-backend nola-analytics-frontend nola-analytics-db nola-analytics-redis
 ```
 
-### PostgreSQL Performance
+## PostgreSQL Performance
 ```sql
 -- Queries mais lentas
 SELECT
@@ -259,7 +259,7 @@ FROM pg_stat_activity
 WHERE state = 'active';
 ```
 
-### Redis Performance
+## Redis Performance
 ```redis
 # Estatísticas de cache
 INFO stats
@@ -271,9 +271,9 @@ INFO stats | grep keyspace
 INFO commandstats
 ```
 
-## Troubleshooting Comum
+# Troubleshooting Comum
 
-### Port Already in Use
+## Port Already in Use
 ```powershell
 # Ver o que está usando a porta 5432
 netstat -ano | findstr :5432
@@ -284,7 +284,7 @@ taskkill /PID <PID> /F
 # Ou mudar porta no docker-compose.yml
 ```
 
-### Out of Memory
+## Out of Memory
 ```powershell
 # Ver uso de memória
 docker stats --no-stream
@@ -299,7 +299,7 @@ docker volume prune
 docker system prune -a --volumes
 ```
 
-### Database Connection Error
+## Database Connection Error
 ```powershell
 # Verificar se PostgreSQL está rodando
 docker compose ps postgres
@@ -314,7 +314,7 @@ docker compose restart postgres
 docker compose exec postgres pg_isready -U challenge
 ```
 
-### Frontend Can't Connect to Backend
+## Frontend Can't Connect to Backend
 ```powershell
 # Verificar se backend está rodando
 docker compose ps backend
@@ -329,9 +329,9 @@ curl http://localhost:8000/api/health
 docker compose exec frontend env | grep VITE_API_URL
 ```
 
-## Git
+# Git
 
-### Workflow
+## Workflow
 ```powershell
 # Status
 git status
@@ -356,7 +356,7 @@ git checkout main
 git merge feature/nova-feature
 ```
 
-### Conventional Commits
+## Conventional Commits
 ```
 feat: Nova feature
 fix: Correção de bug
@@ -367,9 +367,9 @@ test: Testes
 chore: Manutenção
 ```
 
-## Deploy
+# Deploy
 
-### Produção
+## Produção
 ```powershell
 # Build e start
 docker compose -f docker-compose.prod.yml up -d --build
@@ -381,7 +381,7 @@ docker compose -f docker-compose.prod.yml logs -f
 docker compose -f docker-compose.prod.yml down
 ```
 
-### Backup Completo
+## Backup Completo
 ```powershell
 # Criar diretório de backup
 New-Item -ItemType Directory -Path backup -Force
@@ -396,9 +396,9 @@ docker run --rm -v nola-god-level-desafio_postgres_data:/data -v ${PWD}/backup:/
 git archive --format=zip --output=backup/code_$(Get-Date -Format "yyyy-MM-dd").zip HEAD
 ```
 
-## Monitoring
+# Monitoring
 
-### Health Checks
+## Health Checks
 ```powershell
 # API Health
 $response = Invoke-RestMethod -Uri http://localhost:8000/api/health
@@ -411,7 +411,7 @@ docker compose exec postgres pg_isready -U challenge
 docker compose exec redis redis-cli ping
 ```
 
-### Logs em Tempo Real
+## Logs em Tempo Real
 ```powershell
 # Todos os serviços
 docker compose logs -f --tail=100
@@ -420,9 +420,9 @@ docker compose logs -f --tail=100
 docker compose logs -f --tail=100 --timestamps backend
 ```
 
-## Úteis para Demo
+# Úteis para Demo
 
-### Aquece Cache
+## Aquece Cache
 ```powershell
 # Faz algumas requests para popular cache
 $dates = @{
@@ -440,7 +440,7 @@ Invoke-RestMethod -Uri http://localhost:8000/api/stores
 Invoke-RestMethod -Uri http://localhost:8000/api/channels
 ```
 
-### Reset Completo
+## Reset Completo
 ```powershell
 # Para tudo, remove volumes, rebuild, restart
 docker compose down -v
@@ -453,4 +453,4 @@ docker compose up -d
 
 ---
 
-**💡 Dica**: Salve esses comandos como aliases no seu PowerShell profile para acesso rápido!
+** Dica**: Salve esses comandos como aliases no seu PowerShell profile para acesso rápido!

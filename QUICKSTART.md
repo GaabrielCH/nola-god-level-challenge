@@ -1,22 +1,22 @@
-# 🚀 Quick Start Guide - 5 Minutos para Começar
+#  Quick Start Guide - 5 Minutos para Começar
 
-## Pré-requisitos
+# Pré-requisitos
 
 Certifique-se de ter instalado:
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Windows)
 - [Git](https://git-scm.com/downloads)
 - PowerShell 5.1+ (vem com Windows)
 
-## Passo a Passo
+# Passo a Passo
 
-### 1. Clone o Repositório
+## 1. Clone o Repositório
 
 ```powershell
 git clone <seu-repositorio>
 cd nola-god-level-desafio
 ```
 
-### 2. Inicie o Banco de Dados
+## 2. Inicie o Banco de Dados
 
 ```powershell
 # Inicia só o PostgreSQL
@@ -26,7 +26,7 @@ docker compose up -d postgres
 Start-Sleep -Seconds 30
 ```
 
-### 3. Gere os Dados
+## 3. Gere os Dados
 
 ```powershell
 # Gera 500k vendas (leva 5-15 minutos)
@@ -40,14 +40,14 @@ docker compose run --rm data-generator
 **Aguarde** enquanto os dados são gerados. Você verá:
 ```
 Setting up base data...
-✓ Base data: 3 sub-brands, 6 channels
+ Base data: 3 sub-brands, 6 channels
 Generating 50 stores...
-✓ 50 stores created
+ 50 stores created
 ...
-✓ Total: 500000 sales generated!
+ Total: 500000 sales generated!
 ```
 
-### 4. Inicie a Aplicação Completa
+## 4. Inicie a Aplicação Completa
 
 ```powershell
 # Sobe backend, frontend e Redis
@@ -66,7 +66,7 @@ nola-analytics-db         Up
 nola-analytics-redis      Up
 ```
 
-### 5. Acesse a Aplicação
+## 5. Acesse a Aplicação
 
 Abra seu navegador em:
 
@@ -74,9 +74,9 @@ Abra seu navegador em:
 - **API Backend**: http://localhost:8000
 - **API Docs (Swagger)**: http://localhost:8000/docs
 
-## Primeiros Passos na Aplicação
+# Primeiros Passos na Aplicação
 
-### 1. Dashboard Principal
+## 1. Dashboard Principal
 
 1. Acesse http://localhost:3000
 2. Veja as métricas principais:
@@ -86,28 +86,28 @@ Abra seu navegador em:
 3. Ajuste o período de datas
 4. Selecione lojas específicas
 
-### 2. Análises Customizadas
+## 2. Análises Customizadas
 
 1. Clique em "Análises" no menu
 2. Escolha uma métrica (ex: Faturamento)
 3. Agrupe por dimensão (ex: Canal)
 4. Veja o gráfico e tabela atualizarem
 
-### 3. Comparação de Lojas
+## 3. Comparação de Lojas
 
 1. Clique em "Comparar Lojas"
 2. Ajuste o período
 3. Veja ranking de lojas por faturamento
 
-### 4. Insights Automáticos
+## 4. Insights Automáticos
 
 1. Clique em "Dashboard Customizado"
 2. Veja insights gerados automaticamente
 3. Identifique tendências e anomalias
 
-## Troubleshooting
+# Troubleshooting
 
-### Erro: "port 5432 already in use"
+## Erro: "port 5432 already in use"
 
 Você tem PostgreSQL rodando localmente. Pare ele:
 
@@ -127,7 +127,7 @@ postgres:
     - "5433:5432"  # Usa porta 5433 no host
 ```
 
-### Erro: "Cannot connect to API"
+## Erro: "Cannot connect to API"
 
 1. Verifique se backend está rodando:
    ```powershell
@@ -144,7 +144,7 @@ postgres:
    docker compose restart backend
    ```
 
-### Erro: "Data generation failed"
+## Erro: "Data generation failed"
 
 1. Verifique conexão com banco:
    ```powershell
@@ -159,7 +159,7 @@ postgres:
    python generate_data.py
    ```
 
-### Frontend não carrega
+## Frontend não carrega
 
 1. Verifique logs:
    ```powershell
@@ -174,7 +174,7 @@ postgres:
    # Acesse http://localhost:5173
    ```
 
-## Comandos Úteis
+# Comandos Úteis
 
 ```powershell
 # Ver logs
@@ -198,9 +198,9 @@ docker compose exec postgres psql -U challenge challenge_db
 docker stats
 ```
 
-## Desenvolvimento Local (Sem Docker)
+# Desenvolvimento Local (Sem Docker)
 
-### Backend
+## Backend
 
 ```powershell
 cd backend
@@ -216,7 +216,7 @@ copy .env.example .env
 uvicorn main:app --reload
 ```
 
-### Frontend
+## Frontend
 
 ```powershell
 cd frontend
@@ -226,21 +226,21 @@ npm run dev
 
 Acesse http://localhost:5173
 
-## Próximos Passos
+# Próximos Passos
 
-1. ✅ Explore o Dashboard Principal
-2. ✅ Crie análises personalizadas
-3. ✅ Compare lojas
-4. ✅ Veja insights automáticos
-5. ✅ Teste diferentes períodos e filtros
+1.  Explore o Dashboard Principal
+2.  Crie análises personalizadas
+3.  Compare lojas
+4.  Veja insights automáticos
+5.  Teste diferentes períodos e filtros
 
-## Ajuda
+# Ajuda
 
-- 📚 README completo: [README.md](./README.md)
-- 🏗️ Arquitetura: [ARCHITECTURE.md](./ARCHITECTURE.md)
-- 💬 Discord: https://discord.gg/pRwmm64Vej
-- 📧 Email: gsilvestre@arcca.io
+-  README completo: [README.md](./README.md)
+-  Arquitetura: [ARCHITECTURE.md](./ARCHITECTURE.md)
+-  Discord: https://discord.gg/pRwmm64Vej
+-  Email: gsilvestre@arcca.io
 
 ---
 
-**Dúvidas? Entre em contato!** 🚀
+**Dúvidas? Entre em contato!** 

@@ -1,37 +1,37 @@
-# 🍔 Nola Restaurant Analytics Platform
+# Nola Restaurant Analytics Platform
 
-> **Solução completa de analytics para restaurantes - Nola God Level Challenge 2025**
+> Solução completa de analytics para restaurantes - Nola God Level Challenge 2025
 
 Uma plataforma moderna e intuitiva que permite donos de restaurantes explorarem seus dados de forma flexível, criarem análises personalizadas e tomarem decisões baseadas em insights reais.
 
-## 🎯 O Problema que Resolvemos
+# O Problema que Resolvemos
 
 Maria, dona de 3 restaurantes, tem acesso a dados de **vendas, produtos, clientes e operações** através de múltiplos canais (presencial, iFood, Rappi, app próprio), mas não consegue:
 
-- ❌ Responder perguntas específicas sobre seu negócio
-- ❌ Criar visualizações personalizadas sem depender de desenvolvedores
-- ❌ Identificar tendências e anomalias rapidamente
-- ❌ Comparar performance de lojas e canais facilmente
+- Responder perguntas específicas sobre seu negócio
+- Criar visualizações personalizadas sem depender de desenvolvedores
+- Identificar tendências e anomalias rapidamente
+- Comparar performance de lojas e canais facilmente
 
-## ✨ Nossa Solução
+# Nossa Solução
 
 Uma plataforma de analytics **específica para restaurantes** que oferece:
 
-- ✅ **Dashboard Principal**: Visão geral com métricas-chave e comparação temporal
-- ✅ **Análises Customizadas**: Query builder visual para criar análises sob demanda
-- ✅ **Comparação de Lojas**: Performance detalhada de cada loja
-- ✅ **Insights Automáticos**: IA identifica padrões, anomalias e oportunidades
-- ✅ **Performance**: Queries otimizadas com cache (< 500ms)
-- ✅ **UX Intuitiva**: Interface moderna e responsiva
+- **Dashboard Principal**: Visão geral com métricas-chave e comparação temporal
+- **Análises Customizadas**: Query builder visual para criar análises sob demanda
+- **Comparação de Lojas**: Performance detalhada de cada loja
+- **Insights Automáticos**: IA identifica padrões, anomalias e oportunidades
+- **Performance**: Queries otimizadas com cache (< 500ms)
+- **UX Intuitiva**: Interface moderna e responsiva
 
-## 🚀 Quick Start
+# Quick Start
 
-### Pré-requisitos
+## Pré-requisitos
 
 - Docker e Docker Compose
 - Git
 
-### Instalação Rápida
+## Instalação Rápida
 
 ```powershell
 # 1. Clone o repositório
@@ -56,7 +56,7 @@ docker compose up -d
 # Docs API: http://localhost:8000/docs
 ```
 
-### Sem Docker (Desenvolvimento Local)
+## Sem Docker (Desenvolvimento Local)
 
 **Backend:**
 ```powershell
@@ -79,9 +79,9 @@ npm install
 npm run dev
 ```
 
-## 📊 Funcionalidades
+# Funcionalidades
 
-### 1. Dashboard Principal
+## 1. Dashboard Principal
 
 **Métricas em tempo real:**
 - Faturamento total com comparação ao período anterior
@@ -90,17 +90,17 @@ npm run dev
 - Total de descontos aplicados
 
 **Visualizações:**
-- 📈 Série temporal de faturamento
-- 📊 Performance por canal (iFood, Rappi, Presencial, etc.)
-- 🏆 Top 10 produtos mais vendidos
-- ⏰ Distribuição de vendas por horário
+- Série temporal de faturamento
+- Performance por canal (iFood, Rappi, Presencial, etc.)
+- Top 10 produtos mais vendidos
+- Distribuição de vendas por horário
 
 **Filtros:**
 - Intervalo de datas customizável
 - Seleção múltipla de lojas
 - Atualização em tempo real
 
-### 2. Análises Customizadas
+## 2. Análises Customizadas
 
 **Query Builder Visual:**
 - Selecione a **métrica**: Faturamento, Vendas, Ticket Médio, Tempo de Produção, Tempo de Entrega
@@ -114,7 +114,7 @@ npm run dev
 - Tabela de dados detalhados
 - Exportação de dados (CSV)
 
-### 3. Comparação de Lojas
+## 3. Comparação de Lojas
 
 **Análise Competitiva:**
 - Ranking de lojas por faturamento
@@ -127,22 +127,22 @@ npm run dev
 - Cards individuais com métricas de cada loja
 - Destaque para top performers
 
-### 4. Insights Automáticos
+## 4. Insights Automáticos
 
 **IA identifica automaticamente:**
-- 📈 **Tendências**: Crescimento/queda de receita significativa
-- 🚨 **Anomalias**: Quedas críticas que precisam atenção
-- 🏆 **Performance**: Canais e horários de melhor desempenho
-- 💡 **Recomendações**: Ações sugeridas baseadas nos dados
+- **Tendências**: Crescimento/queda de receita significativa
+- **Anomalias**: Quedas críticas que precisam atenção
+- **Performance**: Canais e horários de melhor desempenho
+- **Recomendações**: Ações sugeridas baseadas nos dados
 
 **Tipos de Insights:**
 - **Info**: Padrões interessantes identificados
 - **Warning**: Situações que merecem atenção
 - **Critical**: Problemas urgentes detectados
 
-## 🏗️ Arquitetura
+# Arquitetura
 
-### Stack Tecnológica
+## Stack Tecnológica
 
 **Backend:**
 - **FastAPI**: API REST moderna e rápida
@@ -162,37 +162,37 @@ npm run dev
 - **Docker & Docker Compose**: Containerização
 - **Nginx** (produção): Reverse proxy
 
-### Arquitetura de Alto Nível
+## Arquitetura de Alto Nível
 
 ```
-┌─────────────┐
-│   Cliente   │
-│  (Browser)  │
-└──────┬──────┘
-       │
-       │ HTTP
-       ▼
-┌─────────────────┐
-│   Frontend      │
-│   React + TS    │
-└──────┬──────────┘
-       │
-       │ REST API
-       ▼
-┌─────────────────┐      ┌─────────────┐
-│   Backend API   │─────▶│    Redis    │
-│    FastAPI      │      │   (Cache)   │
-└──────┬──────────┘      └─────────────┘
-       │
-       │ SQL
-       ▼
-┌─────────────────┐
-│   PostgreSQL    │
-│   (500k sales)  │
-└─────────────────┘
+
+   Cliente   
+  (Browser)  
+
+       
+        HTTP
+       
+
+   Frontend      
+   React + TS    
+
+       
+        REST API
+       
+      
+   Backend API       Redis    
+    FastAPI               (Cache)   
+      
+       
+        SQL
+       
+
+   PostgreSQL    
+   (500k sales)  
+
 ```
 
-### Fluxo de Dados
+## Fluxo de Dados
 
 1. **Usuário** seleciona filtros e métricas no frontend
 2. **Frontend** faz requisição à API com parâmetros
@@ -207,89 +207,89 @@ npm run dev
 6. **Backend** processa resultado e cacheia
 7. **Frontend** renderiza visualizações
 
-### Otimizações de Performance
+## Otimizações de Performance
 
 **Banco de Dados:**
-- ✅ Índices em colunas chave (`created_at`, `store_id`, `channel_id`)
-- ✅ Índices compostos para queries frequentes
-- ✅ Particionamento por data (futura melhoria)
-- ✅ Agregações pré-computadas para queries comuns
+- Índices em colunas chave (`created_at`, `store_id`, `channel_id`)
+- Índices compostos para queries frequentes
+- Particionamento por data (futura melhoria)
+- Agregações pré-computadas para queries comuns
 
 **API:**
-- ✅ Cache Redis com TTL de 5 minutos
-- ✅ Cache key baseado em hash de parâmetros
-- ✅ Connection pooling (10 conexões base, 20 max)
-- ✅ Queries assíncronas quando possível
+- Cache Redis com TTL de 5 minutos
+- Cache key baseado em hash de parâmetros
+- Connection pooling (10 conexões base, 20 max)
+- Queries assíncronas quando possível
 
 **Frontend:**
-- ✅ React Query para cache client-side
-- ✅ Debouncing em filtros
-- ✅ Lazy loading de componentes
-- ✅ Virtualization para listas grandes
+- React Query para cache client-side
+- Debouncing em filtros
+- Lazy loading de componentes
+- Virtualization para listas grandes
 
-## 📁 Estrutura do Projeto
+# Estrutura do Projeto
 
 ```
 nola-god-level-desafio/
-├── backend/
-│   ├── main.py              # FastAPI app principal
-│   ├── models.py            # SQLAlchemy models
-│   ├── schemas.py           # Pydantic schemas
-│   ├── database.py          # Conexão e sessão DB
-│   ├── query_service.py     # Query builder dinâmico
-│   ├── cache_service.py     # Redis cache
-│   ├── config.py            # Configurações
-│   ├── requirements.txt     # Dependências Python
-│   └── Dockerfile
-│
-├── frontend/
-│   ├── src/
-│   │   ├── main.tsx         # Entry point
-│   │   ├── App.tsx          # App principal
-│   │   ├── api.ts           # Client API
-│   │   ├── pages/
-│   │   │   ├── Dashboard.tsx
-│   │   │   ├── Analytics.tsx
-│   │   │   ├── StoreComparison.tsx
-│   │   │   └── CustomDashboard.tsx
-│   │   └── index.css        # Estilos globais
-│   ├── package.json
-│   ├── tsconfig.json
-│   ├── vite.config.ts
-│   └── Dockerfile
-│
-├── docker-compose.yml       # Orquestração
-├── database-schema.sql      # Schema PostgreSQL
-├── generate_data.py         # Gerador de dados
-├── README.md                # Este arquivo
-└── ARCHITECTURE.md          # Decisões arquiteturais
+ backend/
+    main.py              # FastAPI app principal
+    models.py            # SQLAlchemy models
+    schemas.py           # Pydantic schemas
+    database.py          # Conexão e sessão DB
+    query_service.py     # Query builder dinâmico
+    cache_service.py     # Redis cache
+    config.py            # Configurações
+    requirements.txt     # Dependências Python
+    Dockerfile
+
+ frontend/
+    src/
+       main.tsx         # Entry point
+       App.tsx          # App principal
+       api.ts           # Client API
+       pages/
+          Dashboard.tsx
+          Analytics.tsx
+          StoreComparison.tsx
+          CustomDashboard.tsx
+       index.css        # Estilos globais
+    package.json
+    tsconfig.json
+    vite.config.ts
+    Dockerfile
+
+ docker-compose.yml       # Orquestração
+ database-schema.sql      # Schema PostgreSQL
+ generate_data.py         # Gerador de dados
+ README.md                # Este arquivo
+ ARCHITECTURE.md          # Decisões arquiteturais
 ```
 
-## 🎨 Screenshots
+# Screenshots
 
-### Dashboard Principal
+## Dashboard Principal
 - Visão geral com métricas-chave
 - Gráficos de linha e barras
 - Filtros interativos
 
-### Análises Customizadas
+## Análises Customizadas
 - Query builder visual
 - Múltiplas visualizações
 - Tabela de dados detalhados
 
-### Comparação de Lojas
+## Comparação de Lojas
 - Ranking de performance
 - Gráficos comparativos
 - Cards individuais por loja
 
-### Insights Automáticos
+## Insights Automáticos
 - Lista de insights categorizados
 - Recomendações acionáveis
 - Alertas de anomalias
 
-## 🔧 Configuração Avançada
+# Configuração Avançada
 
-### Variáveis de Ambiente
+## Variáveis de Ambiente
 
 **Backend (`.env`):**
 ```env
@@ -303,7 +303,7 @@ CORS_ORIGINS=http://localhost:3000,http://localhost:5173
 VITE_API_URL=http://localhost:8000
 ```
 
-### Geração de Dados Customizada
+## Geração de Dados Customizada
 
 ```powershell
 python generate_data.py `
@@ -314,31 +314,31 @@ python generate_data.py `
   --months 12
 ```
 
-## 📊 API Endpoints
+# API Endpoints
 
-### Metadata
+## Metadata
 - `GET /api/stores` - Lista de lojas
 - `GET /api/channels` - Lista de canais
 - `GET /api/products` - Lista de produtos
 - `GET /api/categories` - Lista de categorias
 
-### Dashboard
+## Dashboard
 - `POST /api/dashboard/overview` - Overview com métricas principais
 
-### Analytics
+## Analytics
 - `POST /api/analytics/time-series` - Série temporal
 - `POST /api/analytics/aggregation` - Agregações customizadas
 - `POST /api/analytics/top-products` - Top produtos
 - `POST /api/analytics/store-comparison` - Comparação de lojas
 - `GET /api/analytics/insights` - Insights automáticos
 
-### Utilities
+## Utilities
 - `GET /api/health` - Health check
 - `DELETE /api/cache/clear` - Limpar cache
 
 **Documentação interativa:** http://localhost:8000/docs
 
-## 🧪 Testes
+# Testes
 
 ```powershell
 # Backend
@@ -353,9 +353,9 @@ npm test
 npm run test:e2e
 ```
 
-## 🚀 Deploy (Produção)
+# Deploy (Produção)
 
-### Opção 1: Docker Compose (Recomendado)
+## Opção 1: Docker Compose (Recomendado)
 
 ```powershell
 # Build e start
@@ -364,14 +364,14 @@ docker compose -f docker-compose.prod.yml up -d
 # Acesse em http://seu-dominio.com
 ```
 
-### Opção 2: Cloud (AWS/Azure/GCP)
+## Opção 2: Cloud (AWS/Azure/GCP)
 
 **Backend:** Deploy FastAPI como container ou serverless
 **Frontend:** Deploy estático (S3, Vercel, Netlify)
 **Banco:** RDS PostgreSQL ou similar
 **Cache:** ElastiCache Redis ou similar
 
-## 📈 Métricas de Performance
+# Métricas de Performance
 
 **Queries:**
 - Média: < 200ms
@@ -387,28 +387,28 @@ docker compose -f docker-compose.prod.yml up -d
 - Time to Interactive: < 3s
 - Lighthouse Score: > 90
 
-## 🤝 Contribuindo
+# Contribuindo
 
 Este é um projeto do Nola God Level Challenge. Para questões ou sugestões:
 
-- 💬 Discord: https://discord.gg/pRwmm64Vej
-- 📧 Email: gsilvestre@arcca.io
+- Discord: https://discord.gg/pRwmm64Vej
+- Email: gsilvestre@arcca.io
 
-## 📝 Decisões Arquiteturais
+# Decisões Arquiteturais
 
 Para entender as escolhas técnicas e trade-offs, leia: [ARCHITECTURE.md](./ARCHITECTURE.md)
 
-## 📜 Licença
+# Licença
 
 Este projeto foi desenvolvido para o Nola God Level Challenge 2025.
 
-## 👨‍💻 Autor
+# Autor
 
-Desenvolvido com ❤️ para o Nola God Level Challenge
+Desenvolvido para o Nola God Level Challenge
 - Challenge: Resolver analytics para 10.000+ restaurantes
 - Prazo: 1 semana
 - Stack: Python/FastAPI + React/TypeScript + PostgreSQL + Redis
 
 ---
 
-**🍔 Feito para Maria e todos os donos de restaurantes que precisam de insights para crescer!**
+Feito para Maria e todos os donos de restaurantes que precisam de insights para crescer!

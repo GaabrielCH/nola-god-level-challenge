@@ -107,23 +107,28 @@ def get_categories(db: Session = Depends(get_db)):
 # Dashboard endpoints
 @app.post("/api/dashboard/overview")
 def get_dashboard_overview(
-    start_date: Optional[datetime] = None,
-    end_date: Optional[datetime] = None,
-    store_ids: Optional[List[int]] = None,
+    start_date: Optional[str] = Query(None),
+    end_date: Optional[str] = Query(None),
+    store_ids: Optional[List[int]] = Query(None),
     db: Session = Depends(get_db)
 ):
     """Get dashboard overview with key metrics"""
     
     # Default to last 30 days
     if not end_date:
-        end_date = datetime.now()
+        end_date_dt = datetime.now()
+    else:
+        end_date_dt = datetime.fromisoformat(end_date.replace('Z', '+00:00'))
+    
     if not start_date:
-        start_date = end_date - timedelta(days=30)
+        start_date_dt = end_date_dt - timedelta(days=30)
+    else:
+        start_date_dt = datetime.fromisoformat(start_date.replace('Z', '+00:00'))
     
     filters = {
         'date_range': {
-            'start_date': start_date,
-            'end_date': end_date
+            'start_date': start_date_dt,
+            'end_date': end_date_dt
         }
     }
     if store_ids:
