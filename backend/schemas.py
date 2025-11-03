@@ -6,8 +6,8 @@ from typing import Optional, List, Any, Dict
 
 # Filters and Query Schemas
 class DateRangeFilter(BaseModel):
-    start_date: Optional[datetime] = None
-    end_date: Optional[datetime] = None
+    start_date: Optional[str] = None
+    end_date: Optional[str] = None
 
 
 class QueryFilter(BaseModel):

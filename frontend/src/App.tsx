@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { BarChart3, TrendingUp, Store, Settings } from 'lucide-react';
 import Dashboard from './pages/Dashboard';
 import Analytics from './pages/Analytics';
@@ -7,17 +6,20 @@ import StoreComparison from './pages/StoreComparison';
 import CustomDashboard from './pages/CustomDashboard';
 
 function App() {
-  const [currentPath, setCurrentPath] = useState('/');
-
-  useEffect(() => {
-    setCurrentPath(window.location.pathname);
-  }, []);
-
   return (
     <Router>
-      <div style={{ display: 'flex', minHeight: '100vh' }}>
-        {/* Sidebar */}
-        <aside style={{
+      <AppContent />
+    </Router>
+  );
+}
+
+function AppContent() {
+  const location = useLocation();
+
+  return (
+    <div style={{ display: 'flex', minHeight: '100vh' }}>
+      {/* Sidebar */}
+      <aside style={{
           width: '250px',
           backgroundColor: 'var(--surface)',
           borderRight: '1px solid var(--border)',
@@ -33,7 +35,7 @@ function App() {
               color: 'var(--primary)',
               marginBottom: '0.5rem'
             }}>
-              🍔 Nola Analytics
+              Nola Analytics
             </h1>
             <p style={{
               fontSize: '0.875rem',
@@ -44,16 +46,16 @@ function App() {
           </div>
 
           <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            <NavLink to="/" icon={<BarChart3 size={20} />} active={currentPath === '/'}>
+            <NavLink to="/" icon={<BarChart3 size={20} />} active={location.pathname === '/'}>
               Dashboard
             </NavLink>
-            <NavLink to="/analytics" icon={<TrendingUp size={20} />} active={currentPath === '/analytics'}>
+            <NavLink to="/analytics" icon={<TrendingUp size={20} />} active={location.pathname === '/analytics'}>
               Análises
             </NavLink>
-            <NavLink to="/stores" icon={<Store size={20} />} active={currentPath === '/stores'}>
+            <NavLink to="/stores" icon={<Store size={20} />} active={location.pathname === '/stores'}>
               Comparar Lojas
             </NavLink>
-            <NavLink to="/custom" icon={<Settings size={20} />} active={currentPath === '/custom'}>
+            <NavLink to="/custom" icon={<Settings size={20} />} active={location.pathname === '/custom'}>
               Dashboard Customizado
             </NavLink>
           </nav>
@@ -78,7 +80,6 @@ function App() {
           </Routes>
         </main>
       </div>
-    </Router>
   );
 }
 

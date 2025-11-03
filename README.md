@@ -31,29 +31,41 @@ Uma plataforma de analytics **específica para restaurantes** que oferece:
 - Docker e Docker Compose
 - Git
 
-## Instalação Rápida
+## Instalação Rápida (Recomendado)
 
 ```powershell
 # 1. Clone o repositório
-git clone <seu-repositorio>
-cd nola-god-level-desafio
+git clone https://github.com/GaabrielCH/nola-god-level-challenge.git
+cd nola-god-level-challenge
 
-# 2. Suba o banco de dados
+# 2. Suba o banco de dados PostgreSQL
 docker compose up -d postgres
 
-# 3. Aguarde o banco estar pronto (15-30 segundos)
+# 3. Aguarde o banco ficar pronto (20-30 segundos)
 Start-Sleep -Seconds 30
 
-# 4. Gere os dados (500k vendas - 5-15 minutos)
-python generate_data.py --db-url postgresql://challenge:challenge_2024@localhost:5432/challenge_db
+# 4. Instale dependências Python para o gerador de dados
+pip install psycopg2-binary faker tqdm
 
-# 5. Inicie toda a aplicação
+# 5. Gere os dados de teste (300k vendas - leva 5-10 minutos)
+python generate_data.py
+
+# 6. Inicie todos os serviços (backend, frontend, redis)
 docker compose up -d
 
-# 6. Acesse a aplicação
+# 7. Aguarde os containers iniciarem (15-20 segundos)
+Start-Sleep -Seconds 20
+
+# 8. Acesse a aplicação
 # Frontend: http://localhost:3000
 # Backend API: http://localhost:8000
-# Docs API: http://localhost:8000/docs
+# API Docs (Swagger): http://localhost:8000/docs
+```
+
+**Verificar se está rodando:**
+```powershell
+docker compose ps
+# Deve mostrar 4 containers: postgres, redis, backend, frontend
 ```
 
 ## Sem Docker (Desenvolvimento Local)
@@ -371,7 +383,67 @@ docker compose -f docker-compose.prod.yml up -d
 **Banco:** RDS PostgreSQL ou similar
 **Cache:** ElastiCache Redis ou similar
 
-# Métricas de Performance
+## Troubleshooting
+
+### Porta já em uso
+```powershell
+# Verificar o que está usando a porta
+netstat -ano | findstr :5432
+netstat -ano | findstr :8000
+netstat -ano | findstr :3000
+
+# Parar containers e tentar novamente
+docker compose down
+docker compose up -d
+```
+
+### Backend não está carregando dados
+```powershell
+# Ver logs do backend
+docker compose logs backend --tail=50
+
+# Reiniciar backend
+docker compose restart backend
+
+# Limpar cache Redis
+docker compose exec redis redis-cli FLUSHALL
+```
+
+### Frontend mostra página em branco
+```powershell
+# Ver logs do frontend
+docker compose logs frontend --tail=30
+
+# Rebuild e restart
+docker compose down
+docker compose up -d --build
+```
+
+### Dados não foram gerados
+```powershell
+# Verificar se PostgreSQL está rodando
+docker compose ps postgres
+
+# Verificar conexão com banco
+docker compose exec postgres psql -U challenge -d challenge_db -c "SELECT COUNT(*) FROM sales;"
+
+# Se não houver dados, gerar novamente
+python generate_data.py
+```
+
+### Docker Desktop não está rodando (Windows)
+```powershell
+# Iniciar Docker Desktop
+Start-Process "C:\Program Files\Docker\Docker\Docker Desktop.exe"
+
+# Aguardar 30-60 segundos
+Start-Sleep -Seconds 60
+
+# Tentar novamente
+docker compose up -d
+```
+
+## Métricas de Performance
 
 **Queries:**
 - Média: < 200ms

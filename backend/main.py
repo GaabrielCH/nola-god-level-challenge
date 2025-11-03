@@ -284,22 +284,27 @@ def get_top_products(
 
 @app.post("/api/analytics/store-comparison")
 def get_store_comparison(
-    start_date: Optional[datetime] = None,
-    end_date: Optional[datetime] = None,
+    start_date: Optional[str] = Query(None),
+    end_date: Optional[str] = Query(None),
     limit: int = Query(20, ge=1, le=100),
     db: Session = Depends(get_db)
 ):
     """Compare store performance"""
     
     if not end_date:
-        end_date = datetime.now()
+        end_date_dt = datetime.now()
+    else:
+        end_date_dt = datetime.fromisoformat(end_date.replace('Z', '+00:00'))
+    
     if not start_date:
-        start_date = end_date - timedelta(days=30)
+        start_date_dt = end_date_dt - timedelta(days=30)
+    else:
+        start_date_dt = datetime.fromisoformat(start_date.replace('Z', '+00:00'))
     
     filters = {
         'date_range': {
-            'start_date': start_date,
-            'end_date': end_date
+            'start_date': start_date_dt,
+            'end_date': end_date_dt
         }
     }
     
@@ -317,21 +322,26 @@ def get_store_comparison(
 
 @app.get("/api/analytics/insights")
 def get_insights(
-    start_date: Optional[datetime] = None,
-    end_date: Optional[datetime] = None,
+    start_date: Optional[str] = Query(None),
+    end_date: Optional[str] = Query(None),
     db: Session = Depends(get_db)
 ):
     """Get automated insights"""
     
     if not end_date:
-        end_date = datetime.now()
+        end_date_dt = datetime.now()
+    else:
+        end_date_dt = datetime.fromisoformat(end_date.replace('Z', '+00:00'))
+    
     if not start_date:
-        start_date = end_date - timedelta(days=30)
+        start_date_dt = end_date_dt - timedelta(days=30)
+    else:
+        start_date_dt = datetime.fromisoformat(start_date.replace('Z', '+00:00'))
     
     filters = {
         'date_range': {
-            'start_date': start_date,
-            'end_date': end_date
+            'start_date': start_date_dt,
+            'end_date': end_date_dt
         }
     }
     

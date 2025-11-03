@@ -346,9 +346,17 @@ class QueryService:
         if filters.get('date_range'):
             date_range = filters['date_range']
             if date_range.get('start_date'):
-                query = query.filter(models.Sale.created_at >= date_range['start_date'])
+                start_date = date_range['start_date']
+                # Convert string to datetime if needed
+                if isinstance(start_date, str):
+                    start_date = datetime.fromisoformat(start_date.replace('Z', '+00:00'))
+                query = query.filter(models.Sale.created_at >= start_date)
             if date_range.get('end_date'):
-                query = query.filter(models.Sale.created_at <= date_range['end_date'])
+                end_date = date_range['end_date']
+                # Convert string to datetime if needed
+                if isinstance(end_date, str):
+                    end_date = datetime.fromisoformat(end_date.replace('Z', '+00:00'))
+                query = query.filter(models.Sale.created_at <= end_date)
         
         if filters.get('store_ids'):
             query = query.filter(models.Sale.store_id.in_(filters['store_ids']))
@@ -369,6 +377,12 @@ class QueryService:
         
         if not start or not end:
             return None
+        
+        # Convert strings to datetime if needed
+        if isinstance(start, str):
+            start = datetime.fromisoformat(start.replace('Z', '+00:00'))
+        if isinstance(end, str):
+            end = datetime.fromisoformat(end.replace('Z', '+00:00'))
         
         # Calculate period length
         period_length = (end - start).days
